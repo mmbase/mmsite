@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<builder
+    xmlns="http://www.mmbase.org/xmlns/builder"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mmbase.org/xmlns/builder
+                        http://www.mmbase.org/xmlns/builder.xsd"
+    name="articles" maintainer="mmbase.org" version="0" extends="object">
+  <searchage>999</searchage>
+  <names>
+    <singular xml:lang="en">Article</singular>
+    <singular xml:lang="nl">Artikel</singular>
+    <plural xml:lang="en">Articles</plural>
+    <plural xml:lang="nl">Artikelen</plural>
+  </names>
+  <descriptions>
+    <description xml:lang="en">An article in this site</description>
+    <description xml:lang="nl">Een artikel in deze site.</description>
+  </descriptions>
+  
+  <xi:include href="http://www.mmbase.org/builders/mmsite/content.data.fields.xml" />
+  <xi:include href="http://www.mmbase.org/builders/mmsite/content.meta.fields.xml" />
+
+</builder>

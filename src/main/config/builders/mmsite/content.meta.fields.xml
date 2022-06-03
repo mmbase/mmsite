@@ -1,0 +1,151 @@
+<?xml version="1.0" ?>
+<fieldlist
+    xmlns="http://www.mmbase.org/xmlns/builder"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mmbase.org/xmlns/builder
+                        http://www.mmbase.org/xmlns/builder.xsd">
+
+	<field name="show">
+	  <descriptions>
+		<description xml:lang="nl">Tonen of niet tonen. Dat is de vraag.</description>
+		<description xml:lang="en">To show or not to show. That is the question.</description>
+	  </descriptions>
+	  <gui>
+		<guiname xml:lang="nl">Tonen</guiname>
+		<guiname xml:lang="en">Show</guiname>
+	  </gui>
+	  <editor>
+		<positions>
+		  <input>92</input>
+		  <list>92</list>
+		  <search>92</search>
+		</positions>
+	  </editor>
+	  <datatype xmlns="http://www.mmbase.org/xmlns/datatypes" base="onoff">
+        <default value="true" />
+	  </datatype>
+	</field>
+
+    <field name="online">
+      <descriptions>
+        <description xml:lang="nl">Datum en tijd waarop dit getoond moet worden</description>
+        <description xml:lang="en">Date and time to display this item</description>
+      </descriptions>
+      <gui>
+        <guiname xml:lang="nl">On-line op</guiname>
+        <guiname xml:lang="en">Online on</guiname>
+      </gui>
+      <editor>
+        <positions>
+          <input>93</input>
+          <list>93</list>
+          <search>93</search>
+        </positions>
+      </editor>
+      <datatype base="datetime" xmlns="http://www.mmbase.org/xmlns/datatypes">
+        <default value="today" />
+        <minInclusive enforce="never" value="today - 10 year" />
+        <maxInclusive enforce="never" value="today + 99 year" />
+      </datatype>
+    </field>
+
+    <field name="offline">
+      <descriptions>
+        <description xml:lang="nl">Datum en tijd waarop dit niet meer getoond moet worden</description>
+        <description xml:lang="en">Date and time to end displaying this item</description>
+      </descriptions>
+      <gui>
+        <guiname xml:lang="nl">Off-line op</guiname>
+        <guiname xml:lang="en">Offline on</guiname>
+      </gui>
+      <editor>
+        <positions>
+          <input>93</input>
+          <list>93</list>
+          <search>93</search>
+        </positions>
+      </editor>
+      <datatype base="datetime" xmlns="http://www.mmbase.org/xmlns/datatypes">
+        <default value="today" />
+        <minInclusive enforce="never" value="today - 10 year" />
+        <maxInclusive enforce="never" value="today + 99 year" />
+      </datatype>
+    </field>
+
+    <field name="created" readonly="true">
+      <descriptions>
+        <description xml:lang="en">Creation date of this item</description>
+        <description xml:lang="nl">Creatiedatum van het item</description>
+      </descriptions>
+      <gui>
+        <guiname xml:lang="en">Created</guiname>
+        <guiname xml:lang="nl">Aangemaakt</guiname>
+      </gui>
+      <editor>
+        <positions>
+          <input>96</input>
+          <search>96</search>
+        </positions>
+      </editor>
+      <datatype base="created" xmlns="http://www.mmbase.org/xmlns/datatypes">
+        <default value="now" />
+      </datatype>
+    </field>
+    
+    <field name="creator" readonly="true">
+      <descriptions>
+        <description xml:lang="en">User that created this item</description>
+        <description xml:lang="nl">De gebruiker die dit item aanmaakte</description>
+      </descriptions>
+      <gui>
+        <guiname xml:lang="en">Creator</guiname>
+        <guiname xml:lang="nl">Creëerder</guiname>
+      </gui>
+      <editor>
+        <positions>
+          <input>97</input>
+          <search>97</search>
+        </positions>
+      </editor>
+      <datatype base="creator" xmlns="http://www.mmbase.org/xmlns/datatypes" />
+    </field>
+    
+    <field name="lastmodified" readonly="true">
+      <descriptions>
+        <description xml:lang="en">Date and time the item was last modified</description>
+        <description xml:lang="nl">Datum en tijd waarop het item het laatst werd gewijzigd</description>
+      </descriptions>
+      <gui>
+        <guiname xml:lang="en">Lastmodified</guiname>
+        <guiname xml:lang="nl">Laatst veranderd</guiname>
+      </gui>
+      <editor>
+        <positions>
+          <list>98</list>
+          <input>98</input>
+          <search>98</search>
+        </positions>
+      </editor>
+      <datatype base="lastmodified" xmlns="http://www.mmbase.org/xmlns/datatypes" />
+    </field>
+    
+    <field name="lastmodifier" readonly="true">
+      <descriptions>
+        <description xml:lang="en">Username of the person who last modified this item</description>
+        <description xml:lang="nl">Inlognaam van de gebruiker die het item het laatst heeft veranderd</description>
+      </descriptions>
+      <gui>
+        <guiname xml:lang="en">Lastmodifier</guiname>
+        <guiname xml:lang="nl">Laatst veranderd door</guiname>
+      </gui>
+      <editor>
+        <positions>
+          <input>99</input>
+          <search>99</search>
+        </positions>
+      </editor>
+      <datatype base="lastmodifier" xmlns="http://www.mmbase.org/xmlns/datatypes" />
+    </field>
+    
+
+</fieldlist>
