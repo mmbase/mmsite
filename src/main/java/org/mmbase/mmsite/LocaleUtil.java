@@ -113,7 +113,7 @@ public class LocaleUtil {
                 log.debug("Matching " + addDegraded(Collections.list(request.getLocales())) + " to " + acceptedLocales);
             }
             LOC:
-            for (Locale proposal : addDegraded(Collections.list(request.getLocales()))) {
+            for (Locale proposal : addDegraded((Collection<Locale>) Collections.list(request.getLocales()))) {
                 log.trace("Considering user preference " + proposal);
                 for (Locale serverLocale : acceptedLocales) {
                     log.trace("Comparing with " + serverLocale);
