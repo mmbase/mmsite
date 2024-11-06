@@ -20,6 +20,12 @@ import org.mmbase.util.logging.Logging;
  * @version $Id: UrlUtils.java 36206 2009-06-19 23:44:46Z michiel $
  */
 public class LocaleUtil {
+    private static final LocaleUtil INSTANCE = new LocaleUtil();
+
+    public static LocaleUtil getInstance() {
+        return INSTANCE;
+    }
+
     private static final Logger log = Logging.getLoggerInstance(LocaleUtil.class);
 
     public static final Parameter<Locale> LOCALE  = new Parameter<Locale>("userlocale", Locale.class);
