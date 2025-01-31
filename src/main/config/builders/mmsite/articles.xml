@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <builder
-    xmlns="http://www.mmbase.org/xmlns/builder"
+    xmlns="https://www.mmbase.org/xmlns/builder"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.mmbase.org/xmlns/builder
-                        http://www.mmbase.org/xmlns/builder.xsd"
+    xsi:schemaLocation="https://www.mmbase.org/xmlns/builder
+                        https://www.mmbase.org/xmlns/builder.xsd"
     name="articles" maintainer="mmbase.org" version="0" extends="object">
   <searchage>999</searchage>
   <names>
@@ -18,7 +18,7 @@
     <description xml:lang="nl">Een artikel in deze site.</description>
   </descriptions>
   
-  <xi:include href="http://www.mmbase.org/builders/mmsite/content.data.fields.xml" />
-  <xi:include href="http://www.mmbase.org/builders/mmsite/content.meta.fields.xml" />
+  <xi:include href="https://www.mmbase.org/builders/mmsite/content.data.fields.xml" />
+  <xi:include href="https://www.mmbase.org/builders/mmsite/content.meta.fields.xml" />
 
 </builder>
