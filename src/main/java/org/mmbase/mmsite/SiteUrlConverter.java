@@ -44,10 +44,17 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
 
     private   final LocaleUtil localeUtil = new LocaleUtil();
 
+    private static SiteUrlConverter instance ;
+
     public SiteUrlConverter(BasicFramework fw) {
         super(fw);
         setDirectory("/");
         addComponent(ComponentRepository.getInstance().getComponent("mmsite"));
+        instance = this;
+    }
+
+    public static SiteUrlConverter getInstance() {
+        return instance;
     }
 
     public void setExcludedPaths(String l) {

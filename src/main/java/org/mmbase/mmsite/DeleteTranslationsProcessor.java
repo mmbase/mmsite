@@ -21,7 +21,7 @@ public class DeleteTranslationsProcessor implements CommitProcessor {
         }
         String builder = node.getNodeManager().getProperty("translations.builder");
         if (node.getNumber() > 0 && builder != null && !"".equals(builder)) {
-            NodeList<Node> translations = SearchUtil.findRelatedNodeList(node, builder, "langrel");
+            NodeList translations = SearchUtil.findRelatedNodeList(node, builder, "langrel");
             LOG.info("Deleting " + translations.size() + " " + builder + " of #" + node.getNumber());
             for (Node tr : translations) {
                 if (tr.mayDelete()) {

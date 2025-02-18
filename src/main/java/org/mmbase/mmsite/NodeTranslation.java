@@ -28,7 +28,7 @@ public final class NodeTranslation extends NodeFunction<Node> {
     }
 
     /* renamed from: getFunctionValue */
-    public Node m4getFunctionValue(Node node, Parameters parameters) {
+    public Node getFunctionValue(Node node, Parameters parameters) {
         Node translation = null;
         Cloud cloud = node.getCloud();
         NodeManager nm = node.getNodeManager();
