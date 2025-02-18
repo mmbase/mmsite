@@ -42,7 +42,7 @@
           <search>93</search>
         </positions>
       </editor>
-      <datatype base="datetime" xmlns="https://www.mmbase.org/xmlns/datatypes">
+      <datatype base="datetime" xmlns="http://www.mmbase.org/xmlns/datatypes">
         <default value="today" />
         <minInclusive enforce="never" value="today - 10 year" />
         <maxInclusive enforce="never" value="today + 99 year" />
@@ -65,7 +65,7 @@
           <search>93</search>
         </positions>
       </editor>
-      <datatype base="datetime" xmlns="https://www.mmbase.org/xmlns/datatypes">
+      <datatype base="datetime" xmlns="http://www.mmbase.org/xmlns/datatypes">
         <default value="today" />
         <minInclusive enforce="never" value="today - 10 year" />
         <maxInclusive enforce="never" value="today + 99 year" />
@@ -87,7 +87,7 @@
           <search>96</search>
         </positions>
       </editor>
-      <datatype base="created" xmlns="https://www.mmbase.org/xmlns/datatypes">
+      <datatype base="created" xmlns="http://www.mmbase.org/xmlns/datatypes">
         <default value="now" />
       </datatype>
     </field>
@@ -107,7 +107,7 @@
           <search>97</search>
         </positions>
       </editor>
-      <datatype base="creator" xmlns="https://www.mmbase.org/xmlns/datatypes" />
+      <datatype base="creator" xmlns="http://www.mmbase.org/xmlns/datatypes" />
     </field>
     
     <field name="lastmodified" readonly="true">
@@ -126,7 +126,7 @@
           <search>98</search>
         </positions>
       </editor>
-      <datatype base="lastmodified" xmlns="https://www.mmbase.org/xmlns/datatypes" />
+      <datatype base="lastmodified" xmlns="http://www.mmbase.org/xmlns/datatypes" />
     </field>
     
     <field name="lastmodifier" readonly="true">
@@ -144,7 +144,7 @@
           <search>99</search>
         </positions>
       </editor>
-      <datatype base="lastmodifier" xmlns="https://www.mmbase.org/xmlns/datatypes" />
+      <datatype base="lastmodifier" xmlns="http://www.mmbase.org/xmlns/datatypes" />
     </field>
     
 
