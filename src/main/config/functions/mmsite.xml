@@ -1,32 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE functionset PUBLIC "//MMBase - functionset //" "https://www.mmbase.org/dtd/functionset_1_0.dtd">
 <functionset>
-<version>2</version>
-<description>Taglib functions for MMSite, like sitestructure etc.</description>
+  <version>2</version>
+  <description>Taglib functions for MMSite, like sitestructure etc.</description>
+
+  <function name="root">
+    <description>
+      Get the 'root' node of a crumbpath (not necessarily home) based on field 'path'.
+    </description>
+    <type>class</type>
+    <class>org.mmbase.mmsite.UrlUtils</class>
+    <method>root</method>
+    <param name="request" type="javax.servlet.http.HttpServletRequest" />
+    <param name="node" type="Node" description="A node f.e. of type page" />
+  </function>
+
+  <function name="parent">
+    <description>
+      The parent node - or one node 'up' - in the hierarchy based on field 'path'.
+    </description>
+    <type>class</type>
+    <class>org.mmbase.mmsite.UrlUtils</class>
+    <method>parent</method>
+    <param name="request" type="javax.servlet.http.HttpServletRequest" />
+    <param name="node" type="Node" description="A node f.e. of type page" />
+  </function>
 
   <function name="crumbs">
-	<description>
-      Returns a NodeList containing nodes of the same (!) type travelling the path to the 'root' 
-      node. Can be used to create a crumbpath. Does not include the original node.
-	</description>
-	<type>class</type>
-	<class>org.mmbase.mmsite.UrlUtils</class>
-	<method>listNodes2Root</method>
-	<param name="node" type="Node" description="A node f.e. of type page" />
-    <return type="org.mmbase.bridge.NodeList" /> 
+    <description>
+      Returns a NodeList containing nodes of the same (!) type travelling the path to the 'root'
+      node based on field 'path', f.e. /news/more/article gives more and news (not home).
+      Can be used to create a crumbpath. Does not include the original node.
+    </description>
+    <type>class</type>
+    <class>org.mmbase.mmsite.UrlUtils</class>
+    <method>crumbs</method>
+    <param name="request" type="javax.servlet.http.HttpServletRequest" />
+    <param name="node" type="Node" description="A node f.e. of type page" />
   </function>
 
   <function name="externallink">
-	<description>
-      Returns true when the url entered is a link to an external website, 
+    <description>
+      Returns true when the url entered is a link to an external website,
       not being on this server.
-	</description>
-	<type>class</type>
-	<class>org.mmbase.mmsite.UrlUtils</class>
-	<method>externalLink</method>
-	<param name="request" type="javax.servlet.http.HttpServletRequest" />
-	<param name="url"     type="String" />
-    <return type="Boolean" /> 
+    </description>
+    <type>class</type>
+    <class>org.mmbase.mmsite.UrlUtils</class>
+    <method>externalLink</method>
+    <param name="request" type="javax.servlet.http.HttpServletRequest" />
+    <param name="url"     type="String" />
   </function>
+
+  <function name="locales">
+    <description>
+      Locales
+    </description>
+    <type>singleton</type>
+    <class>org.mmbase.mmsite.LocaleUtil</class>
+    <method>getDisplayLocales</method>
+  </function>
+
+  <function name="ismultilanguage">
+    <type>singleton</type>
+    <class>org.mmbase.mmsite.LocaleUtil</class>
+    <method>isMultiLanguage</method>
+  </function>
+
 
 </functionset>

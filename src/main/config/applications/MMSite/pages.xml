@@ -7,7 +7,7 @@
 		<path>/contact</path>
 	</node>
 
-	<node number="386" owner="default">
+	<node number="386" owner="default" alias="page_homepage">
 		<title>Home</title>
 		<description></description>
 		<template>387</template>

@@ -23,4 +23,20 @@
     </specialization>
   </datatype>
 
+  <datatype id="mmsite_language"
+            base="iso639" xmlns="http://www.mmbase.org/xmlns/datatypes">
+
+    <property name="inSelf" value="true" />
+    <required value="true" enforce="onvalidate">
+      <description xml:lang="en">... is required.</description>
+      <description xml:lang="nl">... is verplicht.</description>
+    </required>
+    <pattern value="nl|en" />
+
+    <deleteprocessor>
+      <class name="org.mmbase.mmsite.DeleteTranslationsProcessor">  </class>
+    </deleteprocessor>
+
+  </datatype>
+
 </datatypes>

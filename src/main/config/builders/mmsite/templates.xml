@@ -81,9 +81,13 @@
     </field>
 
 	<field name="mimetype">
+      <descriptions>
+        <description xml:lang="en">Mime-type is normally text/html but other templates like text/css or text/xml could also be possible</description>
+        <description xml:lang="nl">Het mime-type is meestal text/html maar andere types templates als text/css of text/xml zijn ook mogelijk</description>
+      </descriptions>
       <gui>
-          <guiname xml:lang="nl">Mime-type</guiname>
-          <guiname xml:lang="en">Mime-type</guiname>
+        <guiname xml:lang="nl">Mime-type</guiname>
+        <guiname xml:lang="en">Mime-type</guiname>
       </gui>
       <editor>
         <positions>

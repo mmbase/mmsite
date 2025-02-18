@@ -18,7 +18,20 @@
     <description xml:lang="nl">Een artikel in deze site.</description>
   </descriptions>
   
+  <properties>
+    <property name="translations.builder">articles_translations</property>
+  </properties>
+
   <xi:include href="https://www.mmbase.org/builders/mmsite/content.data.fields.xml" />
+  
+  <fieldlist>
+    <xi:include href="https://www.mmbase.org/builders/mmsite/language.field.xml" />
+  </fieldlist>
+  
   <xi:include href="https://www.mmbase.org/builders/mmsite/content.meta.fields.xml" />
+
+  <functionlist>
+    <xi:include href="https://www.mmbase.org/builders/mmsite/translation.function.xml" />
+  </functionlist>
 
 </builder>

@@ -34,5 +34,38 @@
       <param name="n" type="org.mmbase.bridge.Node" />
     </body>
   </block>
+  
+  <block name="article"
+         classification="mmbase.mmsite"
+         mimetype="text/html">
+    <title xml:lang="en">Article</title>
+    <title xml:lang="nl">Artikel</title>
+    <description xml:lang="en">
+      A block displaying an article.
+    </description>
+    <description xml:lang="nl">
+      Een block voor een artikel.
+    </description>
+    <body jsp="article.jspx">
+      <param name="n" type="org.mmbase.bridge.Node" />
+    </body>
+  </block>
+  
+  <block name="article-comment"
+         classification="mmbase.mmsite"
+         mimetype="text/html">
+    <title xml:lang="en">Comment</title>
+    <title xml:lang="nl">Reactie</title>
+    <description xml:lang="en">
+      Comment about an article.
+    </description>
+    <description xml:lang="nl">
+      Reactie op een artikel.
+    </description>
+    <body jsp="article-comment.jspx">
+      <param name="n"       type="org.mmbase.bridge.Node" />
+      <param name="preview" type="String" />
+    </body>
+  </block>
 
 </component>
