@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <builder
-    xmlns="https://www.mmbase.org/xmlns/builder"
+    xmlns="http://www.mmbase.org/xmlns/builder"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://www.mmbase.org/xmlns/builder
+    xsi:schemaLocation="http://www.mmbase.org/xmlns/builder
                         https://www.mmbase.org/xmlns/builder.xsd"
     name="templates" maintainer="mmbase.org" version="0" extends="object">
   <names>
@@ -32,7 +32,7 @@
           <search>1</search>
         </positions>
       </editor>
-      <datatype xmlns="https://www.mmbase.org/xmlns/datatypes" base="line">
+      <datatype xmlns="http://www.mmbase.org/xmlns/datatypes" base="line">
         <required value="true"/>
         <maxLength value="255"/>
       </datatype>
@@ -54,7 +54,7 @@
           <search>3</search>
         </positions>
       </editor>
-      <datatype xmlns="https://www.mmbase.org/xmlns/datatypes" base="field">
+      <datatype xmlns="http://www.mmbase.org/xmlns/datatypes" base="field">
         <maxLength value="1024" />
       </datatype>
     </field>
@@ -75,7 +75,7 @@
           <search>4</search>
         </positions>
       </editor>
-      <datatype xmlns="https://www.mmbase.org/xmlns/datatypes" base="line">
+      <datatype xmlns="http://www.mmbase.org/xmlns/datatypes" base="line">
         <maxLength value="255" />
       </datatype>
     </field>
@@ -90,7 +90,7 @@
           <list>3</list>
         </positions>
       </editor>
-      <datatype xmlns="https://www.mmbase.org/xmlns/datatypes" base="line">
+      <datatype xmlns="http://www.mmbase.org/xmlns/datatypes" base="line">
         <maxLength value="255" />
       </datatype>
 	</field>

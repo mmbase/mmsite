@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <builder
-    xmlns="https://www.mmbase.org/xmlns/builder"
+    xmlns="http://www.mmbase.org/xmlns/builder"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://www.mmbase.org/xmlns/builder
+    xsi:schemaLocation="http://www.mmbase.org/xmlns/builder
                         https://www.mmbase.org/xmlns/builder.xsd"
     name="pools" maintainer="mmbase.org" version="0" extends="object">
 
@@ -48,7 +48,7 @@
           <search>1</search>
         </positions>
       </editor>
-      <datatype base="line" xmlns="https://www.mmbase.org/xmlns/datatypes">
+      <datatype base="line" xmlns="http://www.mmbase.org/xmlns/datatypes">
         <required value="true" />
         <maxLength value="255" />
       </datatype>
@@ -72,7 +72,7 @@
           <search>2</search>
         </positions>
       </editor>
-      <datatype base="field" xmlns="https://www.mmbase.org/xmlns/datatypes">
+      <datatype base="field" xmlns="http://www.mmbase.org/xmlns/datatypes">
         <maxLength value="2048" />
       </datatype>
     </field>

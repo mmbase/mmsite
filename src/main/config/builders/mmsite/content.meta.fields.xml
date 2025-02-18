@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <fieldlist
-    xmlns="https://www.mmbase.org/xmlns/builder"
+    xmlns="http://www.mmbase.org/xmlns/builder"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://www.mmbase.org/xmlns/builder
+    xsi:schemaLocation="http://www.mmbase.org/xmlns/builder
                         https://www.mmbase.org/xmlns/builder.xsd">
 
 	<field name="show">
@@ -21,7 +21,7 @@
 		  <search>92</search>
 		</positions>
 	  </editor>
-	  <datatype xmlns="https://www.mmbase.org/xmlns/datatypes" base="onoff">
+	  <datatype xmlns="http://www.mmbase.org/xmlns/datatypes" base="onoff">
         <default value="true" />
 	  </datatype>
 	</field>

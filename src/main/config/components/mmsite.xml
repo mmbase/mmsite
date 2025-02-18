@@ -3,9 +3,9 @@
     name="mmsite"
     defaultblock="page"
     version="1"
-    xmlns="https://www.mmbase.org/xmlns/component"
+    xmlns="http://www.mmbase.org/xmlns/component"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://www.mmbase.org/xmlns/component
+    xsi:schemaLocation="http://www.mmbase.org/xmlns/component
                         https://www.mmbase.org/xmlns/component.xsd">
 
   <description xml:lang="en">Components for a website</description>
