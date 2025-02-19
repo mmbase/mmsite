@@ -3,7 +3,10 @@
     xmlns="http://www.mmbase.org/xmlns/datatypes"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.mmbase.org/xmlns/datatypes
-    https://www.mmbase.org/xmlns/datatypes.xsd">
+    https://www.mmbase.org/xmlns/datatypes.xsd
+    http://www.mmbase.org/xmlns/searchquery
+    https://www.mmbase.org/xmlns/searchquery.xsd
+">
     <!--
     This is a template datatypes.xml
     You can add your own datatypes here.
