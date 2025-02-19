@@ -22,5 +22,5 @@
         <search>2</search>
       </positions>
     </editor>
-    <datatype base="mmsite_language" xmlns="https://www.mmbase.org/xmlns/datatypes" />
+    <datatype base="mmsite_language" xmlns="http://www.mmbase.org/xmlns/datatypes" />
 </field>
