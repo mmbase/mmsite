@@ -227,7 +227,7 @@ public class LocaleUtil implements SystemEventListener {
                 }
             } else {
                 LOC:
-                for (Locale proposal : addDegraded(Collections.list(request.getLocales()))) {
+                for (Locale proposal : (List<Locale>) addDegraded(Collections.list(request.getLocales()))) {
                     log.trace("Considering user preference " + proposal);
                     for (Locale serverLocale : acceptedLocales) {
                         log.trace("Comparing with " + serverLocale);
