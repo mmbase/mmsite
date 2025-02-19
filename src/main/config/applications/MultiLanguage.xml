@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC "-//MMBase//DTD application config 1.1//EN" "https://www.mmbase.org/dtd/application_1_1.dtd">
+<application name="MultiLanguage" maintainer="mmbase.org" version="1" auto-deploy="false">
+
+  <requirements>
+  </requirements>
+
+  <neededbuilderlist>
+    <builder maintainer="mmbase.org" version="1">articles</builder>
+    <builder maintainer="mmbase.org" version="1">articles_translations</builder>
+    <builder maintainer="mmbase.org" version="1">langrel</builder>
+  </neededbuilderlist>
+
+  <neededreldeflist>
+    <reldef source="langrel" target="langrel" direction="bidirectional" guisourcename="LangRel" guitargetname="LangRel" builder="langrel" />
+ </neededreldeflist>
+
+  <allowedrelationlist>
+    <relation from="articles"       to="articles_translations" type="langrel" />
+  </allowedrelationlist>
+
+  <datasourcelist>
+    <datasource builder="articles"              path="MultiLanguage/articles.xml" />
+    <datasource builder="articles_translations" path="MultiLanguage/articles_translations.xml" />
+  </datasourcelist>
+
+  <relationsourcelist>
+	<relationsource builder="langrel" path="MultiLanguage/langrel.xml" />
+  </relationsourcelist>
+
+  <contextsourcelist>
+	<!-- <contextsource path="MultiLanguage/backup.xml" type="depth" goal="backup" /> -->
+  </contextsourcelist>
+
+  <description>
+    A MMBase application for multi-language functionality.
+  </description>
+
+  <install-notice>
+    The application MultiLanguage is installed.
+  </install-notice>
+</application>

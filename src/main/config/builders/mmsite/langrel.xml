@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<builder
+    xmlns="http://www.mmbase.org/xmlns/builder"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mmbase.org/xmlns/builder
+                        https://www.mmbase.org/xmlns/builder.xsd"
+    name="langrel" maintainer="mmbase.org" version="1" extends="insrel">
+  <!-- <class>org.mmbase.module.builders.PosRel</class> -->
+  <names>
+    <singular xml:lang="en">Language relation</singular>
+    <singular xml:lang="nl">Taalrelatie</singular>
+    <plural xml:lang="en">Language relations</plural>
+    <plural xml:lang="nl">Taal relaties</plural>
+  </names>
+  <descriptions>
+    <description xml:lang="en">This relation points to a translation of a node</description>
+    <description xml:lang="nl">Deze relatie geeft een vertaling aan van een node</description>
+  </descriptions>
+  <fieldlist>
+
+  </fieldlist>
+</builder>

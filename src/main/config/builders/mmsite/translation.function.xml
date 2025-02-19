@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<function
+    xmlns="http://www.mmbase.org/xmlns/builder"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mmbase.org/xmlns/builder
+                        https://www.mmbase.org/xmlns/builder.xsd"
+    name="translation">
+    <class>org.mmbase.mmsite.NodeTranslation</class>
+</function>

@@ -4,7 +4,7 @@
           >
   <jsp:output omit-xml-declaration="true" />
   <div
-      class="mm_c c_mmsite b_page ${requestScope['org.mmbase.componentClassName']}"
+      class="mm_c c_mmsite b_article ${requestScope['org.mmbase.componentClassName']}"
       id="${requestScope['org.mmbase.componentId']}">
     
     <mm:import externid="n" />
@@ -13,30 +13,25 @@
 	<p>${mm:string(requestScope['org.mmbase.framework.state'].renderer.block.description)}</p>
     
     <mm:notpresent referid="n">
-      <mm:listnodescontainer type="pages">
-        <mm:maxnumber value="99" />
-        <ol>
+      <mm:listnodescontainer type="articles">
+        <mm:maxnumber value="25" />
+        <ul>
         <mm:listnodes>
           <li>
-            <strong><mm:field name="title" /></strong><br />
-            path: <mm:field name="path"><a href="${mm:link(_)}">${_}</a></mm:field><br />
-            template: 
-            <mm:field name="template">
-              <mm:node number="$_" notfound="skip"><mm:field name="url" /></mm:node>
-            </mm:field><br />
-            component: <mm:link page="page" referids="_node@n"><a href="${_}">${_}</a></mm:link>
+            <mm:link referids="_node@n"><a href="${_}"><mm:field name="title" /></a></mm:link>
           </li>
         </mm:listnodes>
-        </ol>
+        </ul>
       </mm:listnodescontainer>
     </mm:notpresent>
-    
+
     <mm:present referid="n">
-      <p><mm:link><a href="${_}">back</a></mm:link></p>
       <mm:node number="$n">
         <h4><mm:field name="title" escape="inline" /></h4>
-        <mm:field name="description" escape="paragraph" />
+        <mm:field name="intro" escape="paragraph" />
+        <mm:field name="body" escape="paragraph" />
       </mm:node>
+      <p><mm:link><a href="${_}">back</a></mm:link></p>
     </mm:present>
     
   </div>

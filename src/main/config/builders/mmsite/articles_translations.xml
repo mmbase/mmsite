@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<builder
+    xmlns="http://www.mmbase.org/xmlns/builder"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mmbase.org/xmlns/builder
+                        https://www.mmbase.org/xmlns/builder.xsd"
+    name="articles_translations" maintainer="mmbase.org" version="0" extends="object">
+  <searchage>999</searchage>
+  <names>
+    <singular xml:lang="en">Article translation</singular>
+    <singular xml:lang="nl">Artikelvertaling</singular>
+    <plural xml:lang="en">Article translations</plural>
+    <plural xml:lang="nl">Artikelvertalingen</plural>
+  </names>
+  <descriptions>
+    <description xml:lang="en">Translation of an article, only the to be translated fields</description>
+    <description xml:lang="nl">Vertaling van een artikel, alleen de te vertalen velden</description>
+  </descriptions>
+
+  <fieldlist>
+    <xi:include href="https://www.mmbase.org/builders/mmsite/language.field.xml" />
+  </fieldlist>
+  
+  <xi:include href="https://www.mmbase.org/builders/mmsite/content.data.fields.xml" />
+  
+</builder>
