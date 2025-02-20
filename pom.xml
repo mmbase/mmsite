@@ -11,21 +11,21 @@
   <packaging>war</packaging>
   <name>MMBase MMSite webapp</name>
 
-    <description>
-        This application can help build a basic site with nice url's etc.
-     </description>
+  <description>
+    This application can help build a basic site with nice url's etc.
+  </description>
 
-    <repositories>
-      <repository>
-        <id>mmbase</id>
-        <name>MMBase Maven2 repository</name>
-        <url>http://www.mmbase.org/maven2</url>
-      </repository>
-      <repository>
-        <id>mmbase-snapshots</id>
-        <name>MMBase Maven2 snapshots repository</name>
-        <url>http://www.mmbase.org/snapshots</url>
-      </repository>
-    </repositories>
+  <repositories>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
 </project>
