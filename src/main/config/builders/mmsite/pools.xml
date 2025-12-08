@@ -52,7 +52,14 @@
         </positions>
       </editor>
       <datatype base="line" xmlns="http://www.mmbase.org/xmlns/datatypes">
-        <required value="true" />
+        <required value="true">
+          <description xml:lang="nl">Naam is een verplicht veld.</description>
+          <description xml:lang="en">A name is required.</description>
+        </required>
+        <minLength value="2" enforce="onvalidate">
+          <description xml:lang="en">A name is required and should be at least 2 characters.</description>
+          <description xml:lang="nl">Een naam is verplicht en moet tenminste 2 karakters lang zijn.</description>
+        </minLength>
         <maxLength value="255" />
       </datatype>
     </field>
