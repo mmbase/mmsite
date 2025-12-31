@@ -16,6 +16,14 @@
     This application can help build a basic site with nice url's etc.
   </description>
 
+  <scm>
+    <connection>scm:git:${project.scm.url}</connection>
+    <developerConnection>scm:git:${project.scm.url}</developerConnection>
+    <url>https://github.com/mmbase/mmsite</url>
+    <tag>HEAD</tag>
+  </scm>
+
+
   <repositories>
     <repository>
       <name>Central Portal Snapshots</name>
