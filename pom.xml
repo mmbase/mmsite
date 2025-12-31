@@ -10,7 +10,7 @@
   <artifactId>mmbase-mmsite</artifactId>
   <packaging>war</packaging>
   <name>MMBase MMSite webapp</name>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
 
   <description>
     This application can help build a basic site with nice url's etc.
@@ -20,7 +20,7 @@
     <connection>scm:git:${project.scm.url}</connection>
     <developerConnection>scm:git:${project.scm.url}</developerConnection>
     <url>https://github.com/mmbase/mmsite</url>
-    <tag>mmbase-mmsite-1.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
 
