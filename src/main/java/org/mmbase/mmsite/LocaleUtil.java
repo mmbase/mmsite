@@ -23,18 +23,16 @@ package org.mmbase.mmsite;
 
 import java.util.*;
 import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.mmbase.bridge.NotFoundException;
-import org.mmbase.core.event.EventManager;
-import org.mmbase.core.event.SystemEvent;
-import org.mmbase.core.event.SystemEventListener;
+import org.mmbase.core.event.*;
 import org.mmbase.datatypes.DataTypes;
 import org.mmbase.datatypes.StringDataType;
-
-
-import org.mmbase.util.functions.*;
 import org.mmbase.util.LocalizedString;
-
+import org.mmbase.util.functions.Parameter;
+import org.mmbase.util.functions.Parameters;
 import org.mmbase.util.logging.Logger;
 import org.mmbase.util.logging.Logging;
 import org.mmbase.util.xml.UtilReader;
@@ -48,6 +46,7 @@ import org.mmbase.util.xml.UtilReader;
  * @author Michiel Meeuwissen
  * @version $Id: UrlUtils.java 36206 2009-06-19 23:44:46Z michiel $
  */
+@SuppressWarnings("unchecked")
 public class LocaleUtil implements SystemEventListener {
     private static final Logger log = Logging.getLoggerInstance(LocaleUtil.class);
 
@@ -84,13 +83,8 @@ public class LocaleUtil implements SystemEventListener {
     }
 
     public void setProperties(String fileName) {
-        properties = new UtilReader(fileName,
-            new Runnable() {
-                @Override
-                public void run() {
-                    LocaleUtil.this.configure();
-                }
-            }).getProperties();
+        properties = new UtilReader(fileName, LocaleUtil.this::configure)
+            .getProperties();
     }
 
     protected void configure() {
@@ -132,7 +126,7 @@ public class LocaleUtil implements SystemEventListener {
             s = ((StringDataType) DataTypes.getDataType(dt)).getPattern().pattern();
         }
         List<Locale> result = new ArrayList<>();
-        if (s != null && s.length() > 0) {
+        if (s != null && !s.isEmpty()) {
             for (String l : s.split("[,|]")) {
                 result.add(LocalizedString.getLocale(l.trim()));
             }
@@ -161,8 +155,9 @@ public class LocaleUtil implements SystemEventListener {
         return Collections.unmodifiableList(acceptedLocales);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isMultiLanguage() {
-        return displayLocales.size() > 0;
+        return !displayLocales.isEmpty();
     }
 
 
@@ -183,9 +178,9 @@ public class LocaleUtil implements SystemEventListener {
     public Locale getUserPreferredLanguage(HttpServletRequest request) {
         String lang = (String) request.getAttribute(EXPLICIT_LOCALE_KEY);
         if (lang != null && !lang.isEmpty()) {
-            return request.getLocale();
-        } else {
             return new Locale(lang);
+        } else {
+            return request.getLocale();
         }
     }
 
@@ -199,7 +194,7 @@ public class LocaleUtil implements SystemEventListener {
             HttpServletRequest request = frameworkParameters.get(Parameter.REQUEST);
             locale = (String) request.getAttribute(EXPLICIT_LOCALE_KEY);
         }
-        if (locale != null && ! "".equals(locale)) {
+        if (locale != null && !locale.isEmpty()) {
             buf.append(".").append(locale);
         }
     }
