@@ -1,6 +1,6 @@
 /*
 
-This file is part of the MMBase MMSite application, 
+This file is part of the MMBase MMSite application,
 which is part of MMBase - an open source content management system.
     Copyright (C) 2011 André van Toly
 
@@ -41,21 +41,21 @@ import org.mmbase.util.logging.Logging;
  * The nodemanager to hold the translations can be specified with the property 'translations.builder',
  * otherwise a nodemanager will be guessed by appending '_translations'.
  * Only the translatable fields are part of 'articles_translations', fields like dates etc. are
- * ommited. The same untranslated node is returned when no translation is found. 
+ * ommited. The same untranslated node is returned when no translation is found.
  * If a field is not translated (yet), the value of the original node is used.
- * 
+ *
  * @author Andr&eacute; van Toly
  * @version $Id: NodeTranslation.java 45648 2011-04-04 19:00:18Z andre $
  */
 public final class NodeTranslation extends NodeFunction<Node> {
     private static final long serialVersionUID = 0L;
     private static final Logger log = Logging.getLoggerInstance(NodeTranslation.class);
-    
+
     public NodeTranslation() {
         super("nodetranslation", Parameter.LOCALE);
     }
 
-    
+
     @Override
     public Node getFunctionValue(Node node, Parameters parameters) {
         Node translation = null;
@@ -66,11 +66,11 @@ public final class NodeTranslation extends NodeFunction<Node> {
             translations_builder = nm.getName() + "_translations";
         }
         NodeManager translationsNM = cloud.getNodeManager(translations_builder);
-        
+
         Locale loc = parameters.get(Parameter.LOCALE);
         Locale oriloc = loc;
         String lang = loc.toString();
-        
+
         try {
             while (loc != null && translation == null) {
                 if (log.isDebugEnabled()) {
@@ -81,16 +81,16 @@ public final class NodeTranslation extends NodeFunction<Node> {
                 if (log.isTraceEnabled()) {
                     log.trace("query: " + query.toSql());
                 }
-                
+
                 NodeList nl = cloud.getList(query);
                 if (nl.size() > 1) {
                     log.warn(nl.size() + " translations found in '" + lang + "' for node " + node.getNumber() + " !");
                 }
-                
-                if (nl.size() > 0) {
+
+                if (!nl.isEmpty()) {
                     Node clusterNode = nl.getNode(0); // clusternode
                     translation = cloud.getNode(clusterNode.getIntValue(translationsNM.getName() + ".number"));
-                    
+
                     if (log.isDebugEnabled()) {
                         log.debug("Found: " + node.getNumber());
                     }
@@ -98,35 +98,30 @@ public final class NodeTranslation extends NodeFunction<Node> {
                     loc = LocalizedString.degrade(loc, oriloc);
                 }
             }
-        
+
         } catch (Exception e) {
             log.error("Exception while building query: " + e);
         }
-        
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.putAll(new NodeMap(node));
+
+        Map<String, Object> map = new HashMap<>(new NodeMap(node));
         if (translation != null) {
-            
+
             Map<String, Object> translationMap = new NodeMap(translation);
-            Iterator<Map.Entry<String,Object>> iter = translationMap.entrySet().iterator();
-            
-            while(iter.hasNext()) {
-                Map.Entry<String,Object> e = iter.next();
-                
+            for (Map.Entry<String, Object> e : translationMap.entrySet()) {
                 // overwrite only non-empty and non-system fields
                 String fldName = e.getKey();
-                if (!"number".equals(fldName) && 
-                    !"owner".equals(fldName) && 
-                    !"otype".equals(fldName) && 
+                if (!"number".equals(fldName) &&
+                    !"owner".equals(fldName) &&
+                    !"otype".equals(fldName) &&
                     !"language".equals(fldName) &&
                     e.getValue() != null && !"".equals(e.getValue())) {
-                    
+
                     map.put(fldName, e.getValue());
                 }
             }
         }
-        
-        return new MapNode<Object>(map, cloud);
+
+        return new MapNode<>(map, cloud);
     }
 
 }

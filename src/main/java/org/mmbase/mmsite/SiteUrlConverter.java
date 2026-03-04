@@ -1,6 +1,6 @@
 /*
 
-This file is part of the MMBase MMSite application, 
+This file is part of the MMBase MMSite application,
 which is part of MMBase - an open source content management system.
     Copyright (C) 2009 André van Toly
 
@@ -21,25 +21,17 @@ along with MMBase. If not, see <http://www.gnu.org/licenses/>.
 
 package org.mmbase.mmsite;
 
-import org.mmbase.bridge.Cloud;
-import org.mmbase.bridge.ContextProvider;
-import org.mmbase.bridge.Node;
-import org.mmbase.bridge.NotFoundException;
+import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.mmbase.bridge.*;
 import org.mmbase.framework.*;
-import org.mmbase.framework.basic.BasicFramework;
-import org.mmbase.framework.basic.BasicUrl;
-import org.mmbase.framework.basic.DirectoryUrlConverter;
-import org.mmbase.framework.basic.Url;
+import org.mmbase.framework.basic.*;
 import org.mmbase.util.functions.Parameter;
 import org.mmbase.util.functions.Parameters;
 import org.mmbase.util.logging.Logger;
 import org.mmbase.util.logging.Logging;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 /**
  * The UrlConverter that can filter and create urls for pages in the site application.
@@ -68,12 +60,12 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
     private static final long serialVersionUID = 0L;
     private static final Logger log = Logging.getLoggerInstance(SiteUrlConverter.class);
 
-    protected final List<String> excludedPaths = new ArrayList<String>();
+    protected final List<String> excludedPaths = new ArrayList<>();
     protected String extension = "html";
     protected boolean useExtension = false;
     private   final LocaleUtil localeUtil = LocaleUtil.getInstance();
     private static SiteUrlConverter instance;
-    
+
     @SuppressWarnings("LeakingThisInConstructor")
     public SiteUrlConverter(BasicFramework fw) {
         super(fw);
@@ -82,7 +74,7 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
         instance = this;
     }
     /**
-     * 
+     *
      * @return The last instance of a SiteUrlConverter
      */
     public static SiteUrlConverter getInstance() {
@@ -111,7 +103,7 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
 
 
     @Override
-    public Parameter[] getParameterDefinition() {
+    public Parameter<?>[] getParameterDefinition() {
         return new Parameter[] {Parameter.REQUEST, Framework.COMPONENT, Framework.BLOCK, LocaleUtil.LOCALE};
     }
 
@@ -131,43 +123,43 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
      * Generates a nice url linking to a template for a ('pages') node.
      */
     @Override
-    protected void getNiceDirectoryUrl(StringBuilder b, Block block, Parameters parameters, Parameters frameworkParameters,  boolean action) throws FrameworkException {
+    protected void getNiceDirectoryUrl(StringBuilder b, Block block, Parameters parameters, Parameters frameworkParameters,  boolean action) {
         if (log.isDebugEnabled()) {
             log.debug("" + parameters + frameworkParameters);
             log.debug("Found mmsite block: " + block);
         }
-        
+
         int b_len = b.length();
-        
+
         if (block.getName().equals("page")) {
-            
+
             Node n = parameters.get(Framework.N);
             if (n == null) {
                 throw new IllegalStateException("No node parameter used in " + frameworkParameters);
             } else {
                 parameters.set(Framework.N, null);
-                
+
                 String path = n.getStringValue("path");
                 if (path.startsWith("/")) {
-                    path = path.substring(1, path.length());
+                    path = path.substring(1);
                 }
                 if (path.endsWith("/")) path = path.substring(0, path.length() - 1);
                 b.append(path);
-    
+
                 if (b.length() > b_len) {   // check if url is altered
                     if (useExtension) {
                         b.append(".").append(extension);
                     }
                 }
-                
+
                 localeUtil.appendLanguage(b, frameworkParameters);
-                
+
             }
 
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("b: " + b.toString());
+            log.debug("b: " + b);
         }
     }
 
@@ -176,7 +168,7 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
      * Translates the result of {@link #getNiceUrl} back to an actual JSP which can render the block
      */
     @Override
-    public Url getFilteredInternalDirectoryUrl(List<String> pa, Map<String, ?> params, Parameters frameworkParameters) throws FrameworkException {
+    public Url getFilteredInternalDirectoryUrl(List<String> pa, Map<String, ?> params, Parameters frameworkParameters) {
         if (log.isDebugEnabled()) {
             log.debug("params: " + params + "fw: " + frameworkParameters);
             log.debug("path pieces: " + pa + ", path size: " + pa.size());
@@ -186,7 +178,7 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
 
         StringBuilder result = new StringBuilder();
         Cloud cloud = ContextProvider.getDefaultCloudContext().getCloud("mmbase");
-        if (pa.size() > 0 && excludedPaths.contains(pa.get(0))) {
+        if (!pa.isEmpty() && excludedPaths.contains(pa.get(0))) {
             if (log.isDebugEnabled()) {
                 log.debug("Returning null, path in excludepaths: " + pa.get(0));
             }
@@ -210,7 +202,7 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
             return Url.NOT;
         }
 
-        if (useExtension && path.indexOf(extension) > -1) {
+        if (useExtension && path.contains(extension)) {
             path = path.substring(0, path.lastIndexOf(extension) - 1);
         }
 
@@ -220,8 +212,8 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
             if (!template.startsWith("/")) {
                 result.append("/");
             }
-            char connector = template.indexOf("?") == -1 ? '?' : '&';
-            result.append(template).append(connector).append("n=" + node.getNumber());
+            char connector = !template.contains("?") ? '?' : '&';
+            result.append(template).append(connector).append("n=").append(node.getNumber());
         } else {
             if (log.isDebugEnabled()) {
                 log.debug("No node found for '" + path + "'");
@@ -230,7 +222,7 @@ public class SiteUrlConverter extends DirectoryUrlConverter {
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("Returning: " + result.toString());
+            log.debug("Returning: " + result);
         }
         return new BasicUrl(this, result.toString());
 

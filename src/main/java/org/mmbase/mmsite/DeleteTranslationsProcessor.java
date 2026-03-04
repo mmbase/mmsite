@@ -1,6 +1,6 @@
 /*
 
-This file is part of the MMBase MMSite application, 
+This file is part of the MMBase MMSite application,
 which is part of MMBase - an open source content management system.
     Copyright (C) 2011 André van Toly
 
@@ -28,7 +28,7 @@ import org.mmbase.util.logging.*;
 
 
 /**
- * This commit-processor is used on translations of nodes, normally ending with 
+ * This commit-processor is used on translations of nodes, normally ending with
  * '[nodetype]_translations'. While deleting the original node it also deletes
  * the related translations.
  *
@@ -42,8 +42,8 @@ public class DeleteTranslationsProcessor implements CommitProcessor {
     public static String NOT = DeleteTranslationsProcessor.class.getName() + ".DONOT";
 
     private static final Logger LOG = Logging.getLoggerInstance(DeleteTranslationsProcessor.class);
-    
-    
+
+
     public void commit(final Node node, final Field field) {
 
         if (node.getCloud().getProperty(NOT) != null) {
@@ -51,7 +51,7 @@ public class DeleteTranslationsProcessor implements CommitProcessor {
             return;
         }
         String builder = node.getNodeManager().getProperty("translations.builder");
-        if (node.getNumber() > 0 && builder != null && !"".equals(builder)) {
+        if (node.getNumber() > 0 && builder != null && !builder.isEmpty()) {
 
             // test for 'langrel'
             try {
@@ -69,7 +69,7 @@ public class DeleteTranslationsProcessor implements CommitProcessor {
                 } else {
                     LOG.warn("May not delete #" + tr);
                 }
-            }            
+            }
         }
     }
 

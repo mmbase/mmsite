@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.mmbase.bridge.*;
 import org.mmbase.bridge.util.Queries;
 import org.mmbase.bridge.util.SearchUtil;
+import org.mmbase.util.HttpServletRequestUtils;
 import org.mmbase.util.logging.Logger;
 import org.mmbase.util.logging.Logging;
 
@@ -235,14 +236,14 @@ public final class UrlUtils {
             if (log.isDebugEnabled()) {
                 log.debug("testing: " + ppath);
             }
-            
+
             Node n = getPagebyPath(req, node.getCloud(), nm, ppath);
- 
+
             list.add(n);
         }
 
         list.add(node);     // add node itself to list
-        
+
         return list;
     }
 
@@ -254,7 +255,7 @@ public final class UrlUtils {
      * @return true if external link
      */
     public Boolean externalLink(HttpServletRequest req, String url) {
-        String servername = req.getServerName();
+        String servername = HttpServletRequestUtils.appendAbsolute( );req.getServerName();
         if (url.startsWith("http://")
             && url.indexOf(servername) < 0
             ) {
