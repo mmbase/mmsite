@@ -1,6 +1,6 @@
 /*
 
-This file is part of the MMBase MMSite application, 
+This file is part of the MMBase MMSite application,
 which is part of MMBase - an open source content management system.
     Copyright (C) 2009 André van Toly
 
@@ -41,7 +41,7 @@ import org.mmbase.util.xml.UtilReader;
 
 
 /**
- * Utility methods for UrlConverter to support language postfixing in the URL, 
+ * Utility methods for UrlConverter to support language postfixing in the URL,
  * f.e. '/articles/random.en' or '/articles/random.nl'.
  *
  * @author Andr&eacute; van Toly
@@ -51,25 +51,25 @@ import org.mmbase.util.xml.UtilReader;
 public class LocaleUtil implements SystemEventListener {
     private static final Logger log = Logging.getLoggerInstance(LocaleUtil.class);
 
-    public static final Parameter<Locale> LOCALE  = new Parameter<Locale>("userlocale", Locale.class);
+    public static final Parameter<Locale> LOCALE  = new Parameter<>("userlocale", Locale.class);
     public static final String LOCALE_KEY = "javax.servlet.jsp.jstl.fmt.locale.request";
     public static final String EXPLICIT_LOCALE_KEY = "org.mmbase.mmsite.language";
 
     private static final LocaleUtil instance = new LocaleUtil();
-    
+
     public static LocaleUtil getInstance() {
         return instance;
     }
 
 
-    private final List<Locale> displayLocales = new ArrayList<Locale>();
-    private final List<Locale> acceptedLocales = new ArrayList<Locale>();
+    private final List<Locale> displayLocales = new ArrayList<>();
+    private final List<Locale> acceptedLocales = new ArrayList<>();
 
     private Map<String, String> properties;
     {
         EventManager.getInstance().addEventListener(this);
     }
-    
+
     @Override
     public void notify(SystemEvent se ){
         if (se instanceof SystemEvent.Up) {
@@ -77,12 +77,12 @@ public class LocaleUtil implements SystemEventListener {
             configure();
         }
     }
-    
+
     @Override
     public int getWeight() {
         return 0;
     }
-    
+
     public void setProperties(String fileName) {
         properties = new UtilReader(fileName,
             new Runnable() {
@@ -92,7 +92,7 @@ public class LocaleUtil implements SystemEventListener {
                 }
             }).getProperties();
     }
-    
+
     protected void configure() {
         if (properties != null) {
             {
@@ -112,7 +112,7 @@ public class LocaleUtil implements SystemEventListener {
      * now add also degraded locales, if not yet present
      */
     protected static Collection<Locale> addDegraded(Collection<Locale> locales) {
-        for (Locale original : new ArrayList<Locale>(locales)) {
+        for (Locale original : new ArrayList<>(locales)) {
             Locale loc = LocalizedString.degrade(original, original);
             while (loc != null) {
                 if (! locales.contains(loc)) {
@@ -131,7 +131,7 @@ public class LocaleUtil implements SystemEventListener {
             String dt = s.substring("DATATYPE:".length());
             s = ((StringDataType) DataTypes.getDataType(dt)).getPattern().pattern();
         }
-        List<Locale> result = new ArrayList<Locale>();
+        List<Locale> result = new ArrayList<>();
         if (s != null && s.length() > 0) {
             for (String l : s.split("[,|]")) {
                 result.add(LocalizedString.getLocale(l.trim()));
@@ -148,7 +148,7 @@ public class LocaleUtil implements SystemEventListener {
         displayLocales.clear();
         displayLocales.addAll(getLocales(s));
     }
-    
+
     public List<Locale> getDisplayLocales() {
         return Collections.unmodifiableList(displayLocales);
     }
@@ -167,15 +167,22 @@ public class LocaleUtil implements SystemEventListener {
 
 
     /**
+     * @deprecated
+     */
+    @Deprecated
+    public Locale getUserPreferedLanguage(HttpServletRequest request) {
+      return getUserPreferredLanguage(request);
+    }
+    /**
      * Searches the request for the attribute 'org.mmbase.mmsite.language' which can contain
      * the preferred language setting for the site. If not found it returns an empty String.
      *
      * @param  request HttpServletRequest
      * @return language code or null if not found
      */
-    public Locale getUserPreferedLanguage(HttpServletRequest request) {
+    public Locale getUserPreferredLanguage(HttpServletRequest request) {
         String lang = (String) request.getAttribute(EXPLICIT_LOCALE_KEY);
-        if (lang != null && ! "".equals(lang)) {
+        if (lang != null && !lang.isEmpty()) {
             return request.getLocale();
         } else {
             return new Locale(lang);
@@ -196,63 +203,81 @@ public class LocaleUtil implements SystemEventListener {
             buf.append(".").append(locale);
         }
     }
-    private final Pattern LANG_PATTERN = Pattern.compile("[a-z]{2}(_[A-Z]{2})?");
-    
+    private final Pattern LANG_PATTERN = Pattern.compile("[a-z]{2,3}(_[A-Z]{2})?");
+
     public String setLanguage(String path, HttpServletRequest request) {
         if (! isMultiLanguage()) return path;
 
         int lastDot = path.lastIndexOf(".");
         if (lastDot >= 0) {
-            String  language = path.substring(lastDot + 1, path.length());
+            String  language = path.substring(lastDot + 1);
             if ( ! LANG_PATTERN.matcher(language).matches()) {
                 return path;
             }
-            Locale locale = LocalizedString.getLocale(language);
-            if (! acceptedLocales.isEmpty() && ! acceptedLocales.contains(locale)) {
-                throw new NotFoundException("Locale '" + language + "' is not supported (path: " + path + ")");
+            // Try using LocalizedString first, but fall back to Java's Locale creation
+            Locale locale = null;
+            try {
+                locale = LocalizedString.getLocale(language);
+            } catch (RuntimeException e) {
+                log.debug("LocalizedString.getLocale failed for '" + language + "', falling back to Locale.forLanguageTag/new Locale", e);
             }
-
-            request.setAttribute(EXPLICIT_LOCALE_KEY, locale.toString());
-            request.setAttribute(LOCALE_KEY, locale);
-            return path.substring(0, lastDot);
-        } else {
-            request.setAttribute(EXPLICIT_LOCALE_KEY, "");
-            Locale inferredLocale = null;
-            if (log.isDebugEnabled()) {
-                log.debug("Matching " + addDegraded(Collections.list(request.getLocales())) + " to " + displayLocales);
-            }
-            if (acceptedLocales.isEmpty()) {
-                if (request.getHeader("Accept-Language") != null ){
-                    inferredLocale = (Locale) Collections.list(request.getLocales()).get(0);
+            if (locale == null) {
+                // Try Java 7+ language tag parsing (replace '_' with '-') then fallback to simple constructor
+                try {
+                    locale = Locale.forLanguageTag(language.replace('_', '-'));
+                } catch (Throwable t) {
+                    // If for some reason forLanguageTag isn't available, use the simple constructor
+                    locale = new Locale(language);
                 }
-            } else {
-                LOC:
-                for (Locale proposal : (List<Locale>) addDegraded(Collections.list(request.getLocales()))) {
-                    log.trace("Considering user preference " + proposal);
-                    for (Locale serverLocale : acceptedLocales) {
-                        log.trace("Comparing with " + serverLocale);
-                        if (serverLocale.equals(proposal)) {
-                            if (log.isDebugEnabled()) {
-                                log.debug("" + proposal + " is a  hit!");
-                            }
-                            inferredLocale = proposal;
-                            break LOC;
-                        }
-                    }
+                if (locale == null) {
+                    locale = new Locale(language);
                 }
             }
-            if (inferredLocale == null) {
-                inferredLocale = displayLocales.get(0);
-                if (log.isDebugEnabled()) {
-                    log.debug("No hit found, taking " + inferredLocale);
-                }
+             if (! acceptedLocales.isEmpty() && ! acceptedLocales.contains(locale)) {
+                 throw new NotFoundException("Locale '" + language + "' is not supported (path: " + path + ")");
+             }
 
-            }
-            request.setAttribute(LOCALE_KEY, inferredLocale);
+             request.setAttribute(EXPLICIT_LOCALE_KEY, locale.toString());
+             request.setAttribute(LOCALE_KEY, locale);
+             return path.substring(0, lastDot);
+         } else {
+             request.setAttribute(EXPLICIT_LOCALE_KEY, "");
+             Locale inferredLocale = null;
+             if (log.isDebugEnabled()) {
+                 log.debug("Matching " + addDegraded(Collections.list(request.getLocales())) + " to " + displayLocales);
+             }
+             if (acceptedLocales.isEmpty()) {
+                 if (request.getHeader("Accept-Language") != null ){
+                     inferredLocale = (Locale) Collections.list(request.getLocales()).get(0);
+                 }
+             } else {
+                 LOC:
+                 for (Locale proposal : (List<Locale>) addDegraded(Collections.list(request.getLocales()))) {
+                     log.trace("Considering user preference " + proposal);
+                     for (Locale serverLocale : acceptedLocales) {
+                         log.trace("Comparing with " + serverLocale);
+                         if (serverLocale.equals(proposal)) {
+                             if (log.isDebugEnabled()) {
+                                 log.debug(proposal + " is a  hit!");
+                             }
+                             inferredLocale = proposal;
+                             break LOC;
+                         }
+                     }
+                 }
+             }
+             if (inferredLocale == null) {
+                 inferredLocale = displayLocales.get(0);
+                 if (log.isDebugEnabled()) {
+                     log.debug("No hit found, taking " + inferredLocale);
+                 }
 
-            return path;
-        }
-    }
+             }
+             request.setAttribute(LOCALE_KEY, inferredLocale);
+
+             return path;
+         }
+     }
 
 
-}
+ }
