@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.mmbase.bridge.*;
 import org.mmbase.bridge.util.Queries;
 import org.mmbase.bridge.util.SearchUtil;
-import org.mmbase.util.HttpServletRequestUtils;
 import org.mmbase.util.logging.Logger;
 import org.mmbase.util.logging.Logging;
 
@@ -255,14 +254,9 @@ public final class UrlUtils {
      * @return true if external link
      */
     public Boolean externalLink(HttpServletRequest req, String url) {
-        String servername = HttpServletRequestUtils.appendAbsolute( );req.getServerName();
-        if (url.startsWith("http://")
-            && url.indexOf(servername) < 0
-            ) {
-
-            return true;
-        }
-        return false;
+        String servername = req.getServerName();
+        return (url.startsWith("http://") || url.startsWith("https://"))
+            && !url.contains(servername);
     }
 
 
